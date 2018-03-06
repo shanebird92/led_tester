@@ -22,7 +22,7 @@ def main(input=None):
     for instruction in instructions:
         ledTester.apply(instructions)
 
-    print ("The amount of LED's currently "ON" is: ", ledTester.countOccuied())
+    print ("The amount of LED's currently 'ON' is: ", ledTester.countOccuied())
     return 0
 
 
