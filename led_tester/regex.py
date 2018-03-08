@@ -1,4 +1,3 @@
-#utils.py- used to parse inctructions
 import re
 
 ifile = "test_data.txt"
@@ -6,6 +5,9 @@ ifile = "test_data.txt"
 
 def parseFile(input):
 
+
+
+  
     if input.startswith('http'):
         
         pass
@@ -15,8 +17,11 @@ def parseFile(input):
         with open(input, 'r') as f:
             N = int(f.readline())
             for line in f.readlines():
-                instructions.append(line)
-     
+                searchObj = re.search(r'(.*)(\d+),(\d+) through (\d+),(\d+)', line)
+                instructions.append(searchObj)
+                  
+                print(N,searchObj.group(2))
+                print(instructions)
         return N, instructions
     return
 parseFile(ifile)
