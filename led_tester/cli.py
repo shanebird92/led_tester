@@ -49,7 +49,7 @@ def apply_led(N, instructions):
                         list2D[i][j]=1
         else:
             continue
-       
+        
     return sum(sum(x) for x in list2D)
 
 
