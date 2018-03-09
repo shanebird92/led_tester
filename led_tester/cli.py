@@ -3,13 +3,51 @@
 """Console script for led_tester."""
 import sys
 import click
+from utils import parseFile
+import re
+import cmd
+
+def apply_led(N, instructions):
+    list2D = [ [0]*N for _ in range (N) ]
+    
+    
+    for line in instructions:
+        searchObj = re.search(".*(turn on|turn off|switch)\s*([+-]?\d+)\s*,\s*([+-]?\d+)\s*through\s*([+-]?\d+)\s*,\s*([+-]?\d+).*", line)
+        
+        cmd = searchObj.group(1)
+        x1 = int(searchObj.group(2))
+        y1 = int(searchObj.group(3))
+        x2 = int(searchObj.group(4))
+        y2 = int(searchObj.group(5))
+    
+    
+        if cmd == "turn on":
+            for i in range (x1, x2+1):
+                for j in range (y1, y2+1):
+                    list2D[i][j]=1
+                    
+        elif cmd == "turn off":
+            for i in range (x1, x2+1):
+                for j in range (y1, y2+1):
+                    list2D[i][j]=0
+                    
+        elif cmd == "switch":
+            for i in range (x1, x2+1):
+                for j in range (y1, y2+1):
+                    if list2D[i][j]==1:
+                        list2D[i][j]=0
+                    elif list2D[i][j]==0:
+                        list2D[i][j]=1
+       
+        
+    return sum(sum(x) for x in list2D)
 
 
 @click.command()
 @click.option("--input", default=None, help="input URI (file or URL)")
-def main(input=None):
+
+def main(input):
     """Console script for led_tester."""
-    print("input", input)
     
     ''' takes two arguments from input as N and instructions, N is first number which I will use to make the
     led, i.e will be the size of the led board squared. Instructions will then be each line which will be 
@@ -17,14 +55,9 @@ def main(input=None):
     ''' 
     N, instructions = parseFile(input)
     
-    ledTester = LEDtester(N)
+    
 
-    for instruction in instructions:
-        ledTester.apply(instructions)
-
-    print ("The amount of LED's currently 'ON' is: ", ledTester.countOccuied())
+    print ("The amount of LED's currently 'ON' is: ", apply_led(N, instructions))
     return 0
-
-
 if __name__ == "__main__":
     sys.exit(main())  # pragma: no cover

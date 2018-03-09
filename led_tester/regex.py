@@ -20,7 +20,7 @@ def parseFile(input):
                 searchObj = re.search(r'(.*)(\d+),(\d+) through (\d+),(\d+)', line)
                 instructions.append(searchObj)
                   
-                print(N,searchObj.group(2))
+                print(N,searchObj.group(0))
                 print(instructions)
         return N, instructions
     return

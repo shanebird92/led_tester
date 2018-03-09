@@ -34,10 +34,9 @@ def apply_led(N, instructions):
                         list2D[i][j]=0
                     elif list2D[i][j]==0:
                         list2D[i][j]=1
-        #print(cmd)   
-       # print(list2D)
-       # print(sum(sum(x) for x in list2D))
-        
+        else:
+            continue
+        print(cmd)   
     return sum(sum(x) for x in list2D)
 ifile = "test_data.txt"
 
